@@ -50,6 +50,27 @@ class Recipe {
   });
 }
 
+class Quiz {
+  final int id;
+  final String name;
+  final String image;
+  final String question;
+  final List<String> options;
+  final List<int> correctAnswers; // Can support multiple correct answers (for checkbox)
+  final String questionType; // "radio", "checkbox", "button"
+
+  Quiz({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.question,
+    required this.options,
+    required this.correctAnswers,
+    required this.questionType,
+  });
+}
+
+
 // Sample data
 
 // List of Spice Categories
@@ -58,31 +79,31 @@ final List<SpiceCategory> spiceCategories = [
     id: 1,
     name: "Épices Amères",
     description: "Épices qui apportent une saveur amère aux plats.",
-    image: "assets/images/epices_ameres.png",
+    image: "assets/categories/amere.png",
   ),
   SpiceCategory(
     id: 2,
     name: "Épices Piquantes",
     description: "Épices qui ajoutent du piquant et de la chaleur aux plats.",
-    image: "assets/images/epices_piquantes.png",
+    image: "assets/categories/piquante.png",
   ),
   SpiceCategory(
     id: 3,
     name: "Épices Acidulées",
     description: "Épices qui ajoutent une touche acidulée aux recettes.",
-    image: "assets/images/epices_acidulees.png",
+    image: "assets/categories/acidule.png",
   ),
   SpiceCategory(
     id: 4,
     name: "Épices Colorantes",
     description: "Épices utilisées principalement pour donner de la couleur aux plats.",
-    image: "assets/images/epices_colorantes.png",
+    image: "assets/categories/colorante.png",
   ),
   SpiceCategory(
     id: 5,
     name: "Épices Aromatiques",
     description: "Épices riches en arômes et souvent utilisées pour parfumer les plats.",
-    image: "assets/images/epices_aromatiques.png",
+    image: "assets/categories/aromatique.png",
   ),
 ];
 
@@ -148,7 +169,7 @@ final List<IndianSpice> indianSpices = [
     id: 6,
     name: "Citronnelle",
     description: "Épice au goût acidulé et rafraîchissant.",
-    image: "assets/images/citronnelle.png",
+    image: "assets/images/citronelle.png",
     advantage: "Aide à la digestion et rafraîchit.",
     inconvenient: "Peut être trop prononcée dans certaines recettes.",
     utilization: "Utilisée dans les soupes et plats de poisson.",
@@ -192,7 +213,7 @@ final List<IndianSpice> indianSpices = [
     id: 10,
     name: "Cannelle",
     description: "Épice sucrée et aromatique utilisée dans les desserts et plats salés.",
-    image: "assets/images/cannelle.png",
+    image: "assets/images/canelle.png",
     advantage: "Propriétés anti-inflammatoires et antioxydantes.",
     inconvenient: "Peut être irritante pour la peau.",
     utilization: "Utilisée dans les desserts, boissons, et certains currys.",
@@ -223,3 +244,68 @@ final List<Recipe> recipes = [
     link: "https://example.com/riz_biriyani",
   ),
 ];
+
+
+
+List<Quiz> quizData = [
+  // Question 1 - Choix multiple avec radio button
+  Quiz(
+    id: 1,
+    name: "Curcuma",
+    image: "assets/images/curcuma.png", // Path to Curcuma image
+    question: "Quel est le principal avantage du Curcuma ?",
+    options: ["Antioxydant", "Anti-inflammatoire", "Apéritif", "Rafraîchissant"],
+    correctAnswers: [1], // Correct answer is "Anti-inflammatoire"
+    questionType: "radio", // Type is radio
+  ),
+
+  // Question 2 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 2,
+    name: "Piment Rouge",
+    image: "assets/images/piment_rouge.png",
+    question: "Quels sont les effets du Piment Rouge ?",
+    options: [
+      "Apporte de la chaleur",
+      "Provoque une digestion lente",
+      "Stimule le métabolisme",
+      "Favorise la digestion"
+    ],
+    correctAnswers: [0, 2, 3], // Multiple correct answers (Checkbox type)
+    questionType: "checkbox", // Type is checkbox
+  ),
+
+  // Question 3 - Choix multiple avec boutons
+  Quiz(
+    id: 3,
+    name: "Cumin",
+    image: "assets/images/cumin.png",
+    question: "Le cumin est souvent utilisé dans quelle cuisine ?",
+    options: ["Cuisine Indienne", "Cuisine Italienne", "Cuisine Mexicaine", "Cuisine Chinoise"],
+    correctAnswers: [0, 2], // Can be Indian or Mexican cuisine
+    questionType: "button", // Type is button
+  ),
+
+  // Question 4 - Choix multiple avec radio button
+  Quiz(
+    id: 4,
+    name: "Cannelle",
+    image: "assets/images/canelle.png",
+    question: "Quel goût est associé à la Cannelle ?",
+    options: ["Amer", "Douce", "Acidulé", "Piquant"],
+    correctAnswers: [1], // Correct answer is "Douce"
+    questionType: "radio", // Type is radio
+  ),
+
+  // Question 5 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 5,
+    name: "Paprika",
+    image: "assets/images/paprika.jpg",
+    question: "Quels sont les bienfaits du Paprika ?",
+    options: ["Riche en vitamine C", "Favorise la santé oculaire", "Soulage la toux", "Effet rafraîchissant"],
+    correctAnswers: [0, 1], // Correct answers are "Riche en vitamine C" and "Favorise la santé oculaire"
+    questionType: "checkbox", // Type is checkbox
+  ),
+];
+
