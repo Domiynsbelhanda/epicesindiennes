@@ -1,4 +1,5 @@
 import 'package:epicesindiennes/pages/home.dart';
+import 'package:epicesindiennes/pages/spices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Importer flutter_svg
 
@@ -16,25 +17,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(selectedIndex: 0,),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final int selectedIndex;
+  const MyHomePage({super.key, required this.selectedIndex});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
-  // Liste des pages
+  @override
+  void initState() {
+    _selectedIndex = widget.selectedIndex;
+  } // Liste des pages
   List<Widget> _pages(BuildContext context) => <Widget>[
     homePage(context), // Passing the context here
-    const Center(child: Text('Page 2')),
+    spicePage(context), // Passing the context here
     const Center(child: Text('Page 3')),
     const Center(child: Text('Page 4')),
     const Center(child: Text('Page 5')),

@@ -1,6 +1,9 @@
+import 'package:epicesindiennes/composants/epicesUse.dart';
 import 'package:epicesindiennes/composants/gridCard.dart';
 import 'package:epicesindiennes/database.dart';
 import 'package:epicesindiennes/global.dart';
+import 'package:epicesindiennes/main.dart';
+import 'package:epicesindiennes/pages/spiceDetail.dart';
 import 'package:flutter/material.dart';
 
 import '../composants/appBar.dart';
@@ -10,52 +13,8 @@ Widget homePage(BuildContext context){
     children: [
       appBar("Accueil", context),
 
-      Padding(
-        padding: const EdgeInsets.only(left : 16.0, right: 16.0, top: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Les épices les plus utilisés",
-              style: TextStyle(
-                fontSize: width(context) / 20,
-              ),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                // Action when "Voir plus" is pressed
-              },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: primaryColor), // Border color
-              ),
-              child: Text(
-                "Voir plus",
-                style: TextStyle(color: secondaryColor), // Text color
-              ),
-            ),
-          ],
-        ),
-      ),
 
-      Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GridCard(
-              imageUrl: indianSpices[2].image,
-              title: indianSpices[2].name,
-              id: indianSpices[2].id, onClick: null,
-            ),
-
-            GridCard(
-              imageUrl: indianSpices[4].image,
-              title: indianSpices[4].name,
-              id: indianSpices[4].id, onClick: null,
-            ),
-          ],
-        ),
-      ),
+      epicesUse(context),
 
 
 
