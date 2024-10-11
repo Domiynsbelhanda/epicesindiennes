@@ -37,19 +37,19 @@ Widget detailAppBar(String name, BuildContext context){
             ),
           ),
 
-          IconButton(
-              onPressed: (){
-                showSearch(
-                  context: context,
-                  delegate: SpiceSearchDelegate(indianSpices), // Pass your spices list
-                );
-              },
-              icon: Icon(
-                  Icons.search,
-                color: Colors.white,
-                size: width(context) / 10,
-              )
-          )
+          // IconButton(
+          //     onPressed: (){
+          //       showSearch(
+          //         context: context,
+          //         delegate: SpiceSearchDelegate(indianSpices), // Pass your spices list
+          //       );
+          //     },
+          //     icon: Icon(
+          //         Icons.search,
+          //       color: Colors.white,
+          //       size: width(context) / 10,
+          //     )
+          // )
         ],
       ),
     ),

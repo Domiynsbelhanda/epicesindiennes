@@ -227,21 +227,21 @@ final List<Recipe> recipes = [
     name: "Curry de Légumes",
     description: "Un curry riche et épicé avec des légumes de saison.",
     image: "assets/images/curry_legumes.png",
-    link: "https://example.com/curry_legumes",
+    link: "assets/videos/curry.mp4",
   ),
   Recipe(
     id: 2,
     name: "Poulet Tandoori",
     description: "Poulet mariné dans un mélange d'épices tandoori et cuit au four.",
     image: "assets/images/poulet_tandoori.png",
-    link: "https://example.com/poulet_tandoori",
+    link: "assets/videos/tandoori.mp4",
   ),
   Recipe(
     id: 3,
     name: "Riz Biriyani",
     description: "Riz parfumé aux épices avec des légumes ou de la viande.",
     image: "assets/images/riz_biriyani.png",
-    link: "https://example.com/riz_biriyani",
+    link: "assets/videos/biryani.mp4",
   ),
 ];
 

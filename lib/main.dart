@@ -1,7 +1,11 @@
+import 'package:epicesindiennes/database.dart';
 import 'package:epicesindiennes/pages/home.dart';
+import 'package:epicesindiennes/pages/settings.dart';
 import 'package:epicesindiennes/pages/spices.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Importer flutter_svg
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'pages/recipe.dart'; // Importer flutter_svg
 
 void main() {
   runApp(const MyApp());
@@ -47,9 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _pages(BuildContext context) => <Widget>[
     homePage(context), // Passing the context here
     spicePage(context, _categoryItem), // Passing the context here
-    const Center(child: Text('Page 3')),
+    recipePage(context),
     const Center(child: Text('Page 4')),
-    const Center(child: Text('Page 5')),
+    settingPage(context),
   ];
 
   void _onItemTapped(int index) {
