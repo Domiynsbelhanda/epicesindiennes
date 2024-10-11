@@ -1,6 +1,9 @@
 import 'package:epicesindiennes/global.dart';
 import 'package:flutter/material.dart';
 
+import '../database.dart';
+import '../pages/search.dart';
+
 Widget detailAppBar(String name, BuildContext context){
   return Container(
     width: double.infinity,
@@ -36,7 +39,10 @@ Widget detailAppBar(String name, BuildContext context){
 
           IconButton(
               onPressed: (){
-
+                showSearch(
+                  context: context,
+                  delegate: SpiceSearchDelegate(indianSpices), // Pass your spices list
+                );
               },
               icon: Icon(
                   Icons.search,

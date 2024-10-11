@@ -7,6 +7,7 @@ import 'package:epicesindiennes/pages/spiceDetail.dart';
 import 'package:flutter/material.dart';
 
 import '../composants/appBar.dart';
+import 'categoryList.dart';
 
 Widget homePage(BuildContext context){
   return Column(
@@ -31,7 +32,10 @@ Widget homePage(BuildContext context){
             ),
             OutlinedButton(
               onPressed: () {
-                // Action when "Voir plus" is pressed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CategoryList()),
+                );
               },
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: primaryColor), // Border color
@@ -53,13 +57,25 @@ Widget homePage(BuildContext context){
             GridCard(
               imageUrl: spiceCategories[3].image,
               title: spiceCategories[3].name,
-              id: spiceCategories[3].id, onClick: null,
+              id: spiceCategories[3].id,
+              onClick: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage(selectedIndex: 1, categoryItem: spiceCategories[3].id,)),
+                );
+              },
             ),
 
             GridCard(
               imageUrl: spiceCategories[2].image,
               title: spiceCategories[2].name,
-              id: spiceCategories[2].id, onClick: null,
+              id: spiceCategories[2].id,
+              onClick: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage(selectedIndex: 1, categoryItem: spiceCategories[2].id,)),
+                );
+              },
             ),
           ],
         ),

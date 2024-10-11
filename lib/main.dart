@@ -17,14 +17,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(selectedIndex: 0,),
+      home: const MyHomePage(selectedIndex: 0),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   final int selectedIndex;
-  const MyHomePage({super.key, required this.selectedIndex});
+  final int? categoryItem;
+
+  const MyHomePage({super.key, required this.selectedIndex, this.categoryItem});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -32,14 +34,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late int _selectedIndex;
+  late int? _categoryItem;
 
   @override
   void initState() {
+    super.initState(); // Ensure the superclass's initState is called
     _selectedIndex = widget.selectedIndex;
-  } // Liste des pages
+    _categoryItem = widget.categoryItem; // Keep it nullable
+  }
+
+  // Liste des pages
   List<Widget> _pages(BuildContext context) => <Widget>[
     homePage(context), // Passing the context here
-    spicePage(context), // Passing the context here
+    spicePage(context, _categoryItem), // Passing the context here
     const Center(child: Text('Page 3')),
     const Center(child: Text('Page 4')),
     const Center(child: Text('Page 5')),
@@ -48,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      // Set categoryItem to null every time an item is tapped
+      _categoryItem = null;
     });
   }
 
@@ -57,11 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(child: _pages(context)[_selectedIndex]), // Call the _pages function and pass context
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
-            color: Colors.white, // Fond de couleur #EEEEEE
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),  // Radius au-dessus à gauche
-              topRight: Radius.circular(16), // Radius au-dessus à droite
-            )
+          color: Colors.white, // Fond de couleur #EEEEEE
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16), // Radius au-dessus à gauche
+            topRight: Radius.circular(16), // Radius au-dessus à droite
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 16.0),
