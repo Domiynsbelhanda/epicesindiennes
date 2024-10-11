@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget settingPage(BuildContext context) {
-  return Padding(
+  return const Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,6 @@
 import 'package:epicesindiennes/database.dart';
 import 'package:epicesindiennes/pages/home.dart';
+import 'package:epicesindiennes/pages/quiz.dart';
 import 'package:epicesindiennes/pages/settings.dart';
 import 'package:epicesindiennes/pages/spices.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     homePage(context), // Passing the context here
     spicePage(context, _categoryItem), // Passing the context here
     recipePage(context),
-    const Center(child: Text('Page 4')),
+    quizPage(context),
     settingPage(context),
   ];
 

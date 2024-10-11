@@ -146,7 +146,7 @@ class _SpiceDetail extends State<SpiceDetail> {
                   color: color ?? Colors.black,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 content,
                 style: const TextStyle(

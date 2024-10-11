@@ -251,7 +251,7 @@ List<Quiz> quizData = [
   // Question 1 - Choix multiple avec radio button
   Quiz(
     id: 1,
-    name: "Curcuma",
+    name: "Avantages de l'utilisation",
     image: "assets/images/curcuma.png", // Path to Curcuma image
     question: "Quel est le principal avantage du Curcuma ?",
     options: ["Antioxydant", "Anti-inflammatoire", "Apéritif", "Rafraîchissant"],
@@ -262,7 +262,7 @@ List<Quiz> quizData = [
   // Question 2 - Choix multiple avec case à cocher (Checkbox)
   Quiz(
     id: 2,
-    name: "Piment Rouge",
+    name: "Questions sur l'Utilisations",
     image: "assets/images/piment_rouge.png",
     question: "Quels sont les effets du Piment Rouge ?",
     options: [
@@ -278,7 +278,7 @@ List<Quiz> quizData = [
   // Question 3 - Choix multiple avec boutons
   Quiz(
     id: 3,
-    name: "Cumin",
+    name: "Questions sur les recettes",
     image: "assets/images/cumin.png",
     question: "Le cumin est souvent utilisé dans quelle cuisine ?",
     options: ["Cuisine Indienne", "Cuisine Italienne", "Cuisine Mexicaine", "Cuisine Chinoise"],
@@ -289,7 +289,7 @@ List<Quiz> quizData = [
   // Question 4 - Choix multiple avec radio button
   Quiz(
     id: 4,
-    name: "Cannelle",
+    name: "Connaissances",
     image: "assets/images/canelle.png",
     question: "Quel goût est associé à la Cannelle ?",
     options: ["Amer", "Douce", "Acidulé", "Piquant"],
@@ -300,7 +300,7 @@ List<Quiz> quizData = [
   // Question 5 - Choix multiple avec case à cocher (Checkbox)
   Quiz(
     id: 5,
-    name: "Paprika",
+    name: "Connaissances",
     image: "assets/images/paprika.jpg",
     question: "Quels sont les bienfaits du Paprika ?",
     options: ["Riche en vitamine C", "Favorise la santé oculaire", "Soulage la toux", "Effet rafraîchissant"],
