@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../database.dart';
 import '../pages/search.dart';
 
-Widget detailAppBar(String name, BuildContext context){
+Widget detailAppBar(String name, BuildContext context) {
   return Container(
     width: double.infinity,
     height: width(context) / 4,
     decoration: BoxDecoration(
-      color: primaryColor
+      color: primaryColor,
     ),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -18,38 +18,38 @@ Widget detailAppBar(String name, BuildContext context){
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: width(context) / 10,
-              )
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: width(context) / 10,
+            ),
           ),
-
 
           Text(
             name,
             style: TextStyle(
-              fontSize: width(context) / 15,
-              color: Colors.white
+              fontSize: width(context) / 20,
+              color: Colors.white,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
 
-          // IconButton(
-          //     onPressed: (){
-          //       showSearch(
-          //         context: context,
-          //         delegate: SpiceSearchDelegate(indianSpices), // Pass your spices list
-          //       );
-          //     },
-          //     icon: Icon(
-          //         Icons.search,
-          //       color: Colors.white,
-          //       size: width(context) / 10,
-          //     )
-          // )
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SpiceSearchDelegate(indianSpices), // Liste des épices
+              );
+            },
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+              size: width(context) / 10,
+            ),
+          ),
         ],
       ),
     ),

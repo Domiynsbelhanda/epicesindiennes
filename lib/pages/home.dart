@@ -7,6 +7,7 @@ import 'package:epicesindiennes/pages/spiceDetail.dart';
 import 'package:flutter/material.dart';
 
 import '../composants/appBar.dart';
+import 'QuizDetail.dart';
 import 'categoryList.dart';
 
 Widget homePage(BuildContext context){
@@ -97,7 +98,10 @@ Widget homePage(BuildContext context){
             ),
             OutlinedButton(
               onPressed: () {
-                // Action when "Voir plus" is pressed
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage(selectedIndex: 3)),
+                );
               },
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: primaryColor), // Border color
@@ -119,13 +123,25 @@ Widget homePage(BuildContext context){
             GridCard(
               imageUrl: quizData[2].image,
               title: quizData[2].name,
-              id: quizData[2].id, onClick: null,
+              id: quizData[2].id,
+              onClick: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizDetail(id: quizData[2].id)),
+                );
+              },
             ),
 
             GridCard(
               imageUrl: quizData[4].image,
               title: quizData[4].name,
-              id: quizData[4].id, onClick: null,
+              id: quizData[4].id,
+              onClick: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizDetail(id: quizData[4].id)),
+                );
+              },
             ),
           ],
         ),

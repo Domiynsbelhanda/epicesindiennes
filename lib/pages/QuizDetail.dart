@@ -1,7 +1,7 @@
 import 'package:epicesindiennes/composants/detailAppBar.dart';
 import 'package:epicesindiennes/database.dart';
+import 'package:epicesindiennes/pages/recipeDetail.dart';
 import 'package:flutter/material.dart';
-import '../composants/epicesUse.dart';
 import '../global.dart';
 
 class QuizDetail extends StatefulWidget {
@@ -17,10 +17,59 @@ class QuizDetail extends StatefulWidget {
 
 class _QuizDetail extends State<QuizDetail> {
   late Quiz quiz;
+  int? selectedAnswer; // Variable to hold the selected radio button
+  List<int> selectedAnswers = []; // Liste dynamique pour les réponses sélectionnées
+  bool isCorrect = false;
 
   @override
   void initState() {
+    super.initState();
     quiz = quizData.firstWhere((e) => e.id == widget.id);
+    // selectedAnswers est initialisée comme une liste vide, permettant des modifications
+    selectedAnswers = [];
+  }
+
+  // Function to check if the answer is correct
+  void checkAnswer() {
+    if (quiz.questionType == "radio") {
+      if (selectedAnswer != null && quiz.correctAnswers.contains(selectedAnswer)) {
+        _showNotification(true);
+      } else {
+        _showNotification(false);
+      }
+    } else if (quiz.questionType == "button") {
+      // Vérifie si les réponses sélectionnées sont correctes
+      if (selectedAnswers.length == quiz.correctAnswers.length &&
+          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer))) {
+        _showNotification(true);
+      } else {
+        _showNotification(false);
+      }
+    } else if (quiz.questionType == "checkbox") {
+      // Vérifie si toutes les réponses sélectionnées sont correctes
+      if (selectedAnswers.length == quiz.correctAnswers.length &&
+          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer))) {
+        _showNotification(true);
+      } else {
+        _showNotification(false);
+      }
+    } else {
+      if (selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer)) &&
+          quiz.correctAnswers.length == selectedAnswers.length) {
+        _showNotification(true);
+      } else {
+        _showNotification(false);
+      }
+    }
+  }
+
+  // Notification to show whether the answer is correct
+  void _showNotification(bool correct) {
+    final snackBar = SnackBar(
+      content: Text(correct ? "Réponse correcte !" : "Réponse incorrecte !"),
+      backgroundColor: correct ? Colors.green : Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -34,7 +83,7 @@ class _QuizDetail extends State<QuizDetail> {
               child: Container(
                 height: 300.0,
                 decoration: BoxDecoration(
-                  color: primaryColor, // Couleur principale du background
+                  color: primaryColor,
                 ),
               ),
             ),
@@ -46,23 +95,23 @@ class _QuizDetail extends State<QuizDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: SizedBox(
-                      width: width(context) / 1.2, // Ajuster selon votre design
+                      width: width(context) / 1.2,
                       height: width(context) / 2,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white, // Bordure blanche
-                          borderRadius: BorderRadius.circular(20), // Bordure extérieure
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2), // Couleur de l'ombre
-                              spreadRadius: 3, // Étendue de l'ombre
-                              blurRadius: 6, // Lissage des bords de l'ombre
-                              offset: const Offset(0, 3), // Position de l'ombre (x, y)
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
                             ),
                           ],
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15), // Rayon de coin de l'image
+                          borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
                             quiz.image,
                             fit: BoxFit.cover,
@@ -72,7 +121,6 @@ class _QuizDetail extends State<QuizDetail> {
                     ),
                   ),
                 ),
-
                 Container(
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.only(top: 8.0, left: 32.0, right: 16.0),
@@ -85,13 +133,11 @@ class _QuizDetail extends State<QuizDetail> {
                     ),
                   ),
                 ),
-
-
                 Container(
                   padding: const EdgeInsets.all(8.0),
                   margin: const EdgeInsets.only(top: 8.0, left: 32.0, right: 16.0),
-                  child: const Text(
-                    "Réponses",
+                  child: Text(
+                    "Réponses (attendues : ${quiz.correctAnswers.length})", // Affiche le nombre de réponses attendues
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       color: Color(0xFFFF9800),
@@ -100,62 +146,51 @@ class _QuizDetail extends State<QuizDetail> {
                     ),
                   ),
                 ),
-
-                _responseCard(quiz),
-
-
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: _responseCard(quiz),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.all(6.0),
-                      margin: const EdgeInsets.only(top: 24.0, left: 32.0),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF263238), // Couleur de fond du titre
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(8),
-                          bottomRight: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                          topLeft: Radius.circular(8),
+                    GestureDetector(
+                      onTap: checkAnswer,
+                      child: Container(
+                        padding: const EdgeInsets.all(6.0),
+                        margin: const EdgeInsets.only(top: 24.0, left: 32.0),
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF263238),
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                      ),
-                      child: const Text(
-                        "Question Suivante",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+                        child: const Text(
+                          "Question Suivante",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
-
-
                     Container(
                       padding: const EdgeInsets.all(6.0),
                       margin: const EdgeInsets.only(top: 24.0, left: 32.0, right: 32.0),
                       decoration: BoxDecoration(
-                        color: Colors.white, // Couleur de fond du titre
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(8),
-                          bottomRight: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                          topLeft: Radius.circular(8),
-                        ),
-                        border: Border.all(color: const Color(0xFF263238), width: 2), // Contour de la couleur
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        border: Border.all(color: const Color(0xFF263238), width: 2),
                       ),
                       child: const Text(
                         "Question 1/5",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color(0xFF263238), // Couleur du texte
+                          color: Color(0xFF263238),
                           fontSize: 18,
                         ),
                       ),
                     ),
-
                   ],
                 )
-
               ],
             ),
           ],
@@ -164,57 +199,73 @@ class _QuizDetail extends State<QuizDetail> {
     );
   }
 
-  // Fonction pour construire une carte
-  Widget _responseCard(Quiz quiz, {Color? color}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: Card(
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                //Type de reponse ici
-
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CurvedClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0.0, size.height - 100);
-
-    var firstControlPoint = Offset(size.width / 2, size.height);
-    var firstEndPoint = Offset(size.width, size.height - 100);
-    path.quadraticBezierTo(
-      firstControlPoint.dx,
-      firstControlPoint.dy,
-      firstEndPoint.dx,
-      firstEndPoint.dy,
-    );
-
-    path.lineTo(size.width, 0.0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
+  Widget _responseCard(Quiz quiz) {
+    switch (quiz.questionType) {
+      case "radio":
+        return Column(
+          children: quiz.options.asMap().entries.map((entry) {
+            int index = entry.key;
+            String option = entry.value;
+            return RadioListTile(
+              value: index,
+              groupValue: selectedAnswer,
+              onChanged: (value) {
+                setState(() {
+                  selectedAnswer = value as int;
+                  selectedAnswers.clear(); // Réinitialise les réponses sélectionnées pour les radio
+                });
+              },
+              title: Text(option),
+            );
+          }).toList(),
+        );
+      case "checkbox":
+        return Column(
+          children: quiz.options.asMap().entries.map((entry) {
+            int index = entry.key;
+            String option = entry.value;
+            return CheckboxListTile(
+              value: selectedAnswers.contains(index),
+              onChanged: (value) {
+                setState(() {
+                  if (value == true) {
+                    selectedAnswers.add(index);
+                  } else {
+                    selectedAnswers.remove(index);
+                  }
+                });
+              },
+              title: Text(option),
+            );
+          }).toList(),
+        );
+      case "button":
+        return Column(
+          children: quiz.options.asMap().entries.map((entry) {
+            int index = entry.key;
+            String option = entry.value;
+            bool isSelected = selectedAnswers.contains(index); // Vérifie si le bouton est sélectionné
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isSelected ? Colors.orange : Colors.grey, // Change la couleur du bouton sélectionné
+              ),
+              onPressed: () {
+                setState(() {
+                  if (isSelected) {
+                    selectedAnswers.remove(index); // Désélectionne si déjà sélectionné
+                  } else {
+                    if (selectedAnswers.length < 2) { // Limite à deux réponses
+                      selectedAnswers.add(index); // Sélectionne ce bouton
+                    }
+                  }
+                });
+              },
+              child: Text(option),
+            );
+          }).toList(),
+        );
+      default:
+        return Container();
+    }
   }
 }
