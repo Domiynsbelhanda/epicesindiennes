@@ -307,5 +307,220 @@ List<Quiz> quizData = [
     correctAnswers: [0, 1], // Correct answers are "Riche en vitamine C" and "Favorise la santé oculaire"
     questionType: "checkbox", // Type is checkbox
   ),
+
+  // Question 6 - Choix multiple avec radio button
+  Quiz(
+    id: 6,
+    name: "Utilisation du Fenugrec",
+    image: "assets/images/fenugrec.png",
+    question: "Quel est un usage courant du Fenugrec ?",
+    options: ["Thé", "Épice pour les currys", "Farinage", "Soin de la peau"],
+    correctAnswers: [1], // Correct answer is "Épice pour les currys"
+    questionType: "radio",
+  ),
+
+  // Question 7 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 7,
+    name: "Questions sur le Coriandre",
+    image: "assets/images/coriandre.png",
+    question: "Quels plats utilisent souvent le Coriandre ?",
+    options: [
+      "Salsas",
+      "Currys",
+      "Salades",
+      "Soupes"
+    ],
+    correctAnswers: [0, 1, 2], // Multiple correct answers
+    questionType: "checkbox",
+  ),
+
+  // Question 8 - Choix multiple avec boutons
+  Quiz(
+    id: 8,
+    name: "Connaissances sur le Gingembre",
+    image: "assets/images/gingembre.png",
+    question: "Le Gingembre est souvent utilisé pour :",
+    options: [
+      "Soins médicaux",
+      "Préparation de gâteaux",
+      "Thé",
+      "Épice pour curry"
+    ],
+    correctAnswers: [0, 2, 3], // Multiple correct answers
+    questionType: "button",
+  ),
+
+  // Question 9 - Choix multiple avec radio button
+  Quiz(
+    id: 9,
+    name: "Questions sur le Safran",
+    image: "assets/images/safran.png",
+    question: "Quelle est la caractéristique principale du Safran ?",
+    options: ["Riche en fer", "Épice la plus chère", "Goût amer", "Utilisé dans les desserts"],
+    correctAnswers: [1], // Correct answer is "Épice la plus chère"
+    questionType: "radio",
+  ),
+
+  // Question 10 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 10,
+    name: "Utilisation du Cardamome",
+    image: "assets/images/cardamome.png",
+    question: "Dans quels plats trouve-t-on souvent du Cardamome ?",
+    options: [
+      "Café",
+      "Thé",
+      "Currys",
+      "Pâtisseries"
+    ],
+    correctAnswers: [0, 1, 2, 3], // All options are correct
+    questionType: "checkbox",
+  ),
+
+  // Question 11 - Choix multiple avec boutons
+  Quiz(
+    id: 11,
+    name: "Propriétés de l'Ajwain",
+    image: "assets/images/ajwain.png",
+    question: "L'Ajwain est connu pour :",
+    options: [
+      "Faciliter la digestion",
+      "Protéger le cœur",
+      "Avoir un goût sucré",
+      "Utiliser dans les pains"
+    ],
+    correctAnswers: [0, 3], // Correct answers are "Faciliter la digestion" and "Utiliser dans les pains"
+    questionType: "button",
+  ),
+
+  // Question 12 - Choix multiple avec radio button
+  Quiz(
+    id: 12,
+    name: "Questions sur la Moutarde",
+    image: "assets/images/moutarde.png",
+    question: "Quel type de moutarde est couramment utilisé en Inde ?",
+    options: ["Moutarde blanche", "Moutarde noire", "Moutarde douce", "Moutarde au miel"],
+    correctAnswers: [1], // Correct answer is "Moutarde noire"
+    questionType: "radio",
+  ),
+
+  // Question 13 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 13,
+    name: "Épices et santé",
+    image: "assets/images/poivre_noir.png",
+    question: "Quels bienfaits sont associés au Poivre ?",
+    options: [
+      "Améliore la circulation sanguine",
+      "Anti-inflammatoire",
+      "Favorise la digestion",
+      "Augmente le cholestérol"
+    ],
+    correctAnswers: [0, 1, 2], // Correct answers
+    questionType: "checkbox",
+  ),
+
+  // Question 14 - Choix multiple avec boutons
+  Quiz(
+    id: 14,
+    name: "Utilisations de l'Anis",
+    image: "assets/images/anis.png",
+    question: "L'Anis est souvent utilisé dans :",
+    options: [
+      "Des thés",
+      "Des plats salés",
+      "Des desserts",
+      "Des boissons alcoolisées"
+    ],
+    correctAnswers: [0, 2, 3], // Correct answers
+    questionType: "button",
+  ),
+
+  // Question 15 - Choix multiple avec radio button
+  Quiz(
+    id: 15,
+    name: "Questions sur le Piment",
+    image: "assets/images/piment_rouge.png",
+    question: "Quel piment est le plus utilisé en Inde ?",
+    options: ["Piment de Cayenne", "Piment Jalapeño", "Piment Bhut Jolokia", "Piment Vert"],
+    correctAnswers: [3], // Correct answer is "Piment Vert"
+    questionType: "radio",
+  ),
+
+  // Question 16 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 16,
+    name: "Épices et cultures",
+    image: "assets/images/curry_legumes.png",
+    question: "Quelles sont les épices de base utilisées dans un Curry ?",
+    options: [
+      "Curcuma",
+      "Cumin",
+      "Coriandre",
+      "Eau",
+    ],
+    correctAnswers: [0, 1, 2, 3], // All options are correct
+    questionType: "checkbox",
+  ),
+
+  // Question 17 - Choix multiple avec boutons
+  Quiz(
+    id: 17,
+    name: "Connaissances sur le Clou de Girofle",
+    image: "assets/images/clou_de_girofle.png",
+    question: "Le Clou de Girofle est souvent utilisé pour :",
+    options: [
+      "Assaisonner les viandes",
+      "Préparer des desserts",
+      "Épicer le café",
+      "Soins dentaires"
+    ],
+    correctAnswers: [0, 1], // Correct answers
+    questionType: "button",
+  ),
+
+  // Question 18 - Choix multiple avec radio button
+  Quiz(
+    id: 18,
+    name: "Propriétés du Turmeric",
+    image: "assets/images/turmeric.png",
+    question: "Le Turmeric est souvent utilisé pour :",
+    options: ["Colorant alimentaire", "Épice médicinale", "Parfum", "Conservateur"],
+    correctAnswers: [1], // Correct answers
+    questionType: "radio",
+  ),
+
+  // Question 19 - Choix multiple avec case à cocher (Checkbox)
+  Quiz(
+    id: 19,
+    name: "Utilisations du Basilic",
+    image: "assets/images/basilic.png",
+    question: "Quels plats utilisent souvent du Basilic ?",
+    options: [
+      "Pesto",
+      "Currys",
+      "Salades",
+      "Soupes"
+    ],
+    correctAnswers: [0, 2], // Correct answers
+    questionType: "checkbox",
+  ),
+
+  // Question 20 - Choix multiple avec boutons
+  Quiz(
+    id: 20,
+    name: "Questions sur le Wasabi",
+    image: "assets/images/wasabi.png",
+    question: "Le Wasabi est souvent utilisé avec :",
+    options: [
+      "Sushi",
+      "Tartares",
+      "Plats chauds",
+      "Pâtes"
+    ],
+    correctAnswers: [0, 1], // Correct answers
+    questionType: "button",
+  ),
 ];
 

@@ -1,8 +1,10 @@
 import 'package:epicesindiennes/composants/detailAppBar.dart';
 import 'package:epicesindiennes/database.dart';
+import 'package:epicesindiennes/pages/QuizResult.dart';
 import 'package:epicesindiennes/pages/recipeDetail.dart';
 import 'package:flutter/material.dart';
 import '../global.dart';
+import 'dart:math'; // Importer le package pour utiliser Random
 
 class QuizDetail extends StatefulWidget {
   final int id;
@@ -19,51 +21,60 @@ class _QuizDetail extends State<QuizDetail> {
   late Quiz quiz;
   int? selectedAnswer; // Variable to hold the selected radio button
   List<int> selectedAnswers = []; // Liste dynamique pour les réponses sélectionnées
-  bool isCorrect = false;
+  int questionCount = 0; // Compteur de questions
+  int correctAnswersCount = 0; // Compteur de réponses correctes
+  final random = Random(); // Instance de Random pour la sélection aléatoire
 
   @override
   void initState() {
     super.initState();
     quiz = quizData.firstWhere((e) => e.id == widget.id);
-    // selectedAnswers est initialisée comme une liste vide, permettant des modifications
     selectedAnswers = [];
   }
 
-  // Function to check if the answer is correct
-  void checkAnswer() {
-    if (quiz.questionType == "radio") {
-      if (selectedAnswer != null && quiz.correctAnswers.contains(selectedAnswer)) {
-        _showNotification(true);
-      } else {
-        _showNotification(false);
-      }
-    } else if (quiz.questionType == "button") {
-      // Vérifie si les réponses sélectionnées sont correctes
-      if (selectedAnswers.length == quiz.correctAnswers.length &&
-          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer))) {
-        _showNotification(true);
-      } else {
-        _showNotification(false);
-      }
-    } else if (quiz.questionType == "checkbox") {
-      // Vérifie si toutes les réponses sélectionnées sont correctes
-      if (selectedAnswers.length == quiz.correctAnswers.length &&
-          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer))) {
-        _showNotification(true);
-      } else {
-        _showNotification(false);
-      }
-    } else {
-      if (selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer)) &&
-          quiz.correctAnswers.length == selectedAnswers.length) {
-        _showNotification(true);
-      } else {
-        _showNotification(false);
-      }
+  // Fonction pour sélectionner une question aléatoire
+  void selectRandomQuestion() {
+    if (questionCount < 5) {
+      setState(() {
+        quiz = quizData[random.nextInt(quizData.length)]; // Sélectionne une question aléatoire
+        selectedAnswers.clear(); // Réinitialise les réponses sélectionnées
+        selectedAnswer = null; // Réinitialise la réponse sélectionnée
+      });
     }
   }
 
-  // Notification to show whether the answer is correct
+  void checkAnswer() {
+    bool correct = false; // Variable pour vérifier si la réponse est correcte
+
+    if (quiz.questionType == "radio") {
+      correct = selectedAnswer != null && quiz.correctAnswers.contains(selectedAnswer);
+    } else if (quiz.questionType == "button") {
+      correct = selectedAnswers.length == quiz.correctAnswers.length &&
+          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer));
+    } else if (quiz.questionType == "checkbox") {
+      correct = selectedAnswers.length == quiz.correctAnswers.length &&
+          selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer));
+    } else {
+      correct = selectedAnswers.every((answer) => quiz.correctAnswers.contains(answer)) &&
+          quiz.correctAnswers.length == selectedAnswers.length;
+    }
+
+    if (correct) {
+      correctAnswersCount++; // Incrémente le compteur de réponses correctes
+    }
+
+    _showNotification(correct);
+    questionCount++; // Incrémente le compteur de questions
+
+    // Si 5 questions sont répondues, afficher le résultat
+    if (questionCount >= 5) {
+      // Affiche le score
+      print("Votre score: $correctAnswersCount/5");
+    } else {
+      selectRandomQuestion(); // Sélectionne une nouvelle question
+    }
+  }
+
   void _showNotification(bool correct) {
     final snackBar = SnackBar(
       content: Text(correct ? "Réponse correcte !" : "Réponse incorrecte !"),
@@ -154,7 +165,18 @@ class _QuizDetail extends State<QuizDetail> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: checkAnswer,
+                      onTap: () {
+                        setState(() {
+                          if (questionCount <= 4) {
+                            checkAnswer();
+                          } else {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => QuizResult(result: correctAnswersCount)),
+                            );
+                          }
+                        });
+                      },
                       child: Container(
                         padding: const EdgeInsets.all(6.0),
                         margin: const EdgeInsets.only(top: 24.0, left: 32.0),
@@ -162,10 +184,10 @@ class _QuizDetail extends State<QuizDetail> {
                           color: Color(0xFF263238),
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        child: const Text(
-                          "Question Suivante",
+                        child: Text(
+                          questionCount <= 4 ? "Question Suivante" : "Voir le Résultat",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                           ),
@@ -180,10 +202,10 @@ class _QuizDetail extends State<QuizDetail> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         border: Border.all(color: const Color(0xFF263238), width: 2),
                       ),
-                      child: const Text(
-                        "Question 1/5",
+                      child: Text(
+                        questionCount <= 4 ? "Question ${questionCount + 1}/5" : "Question 5/5", // Affiche le nombre de questions répondues
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF263238),
                           fontSize: 18,
                         ),
@@ -247,16 +269,14 @@ class _QuizDetail extends State<QuizDetail> {
             bool isSelected = selectedAnswers.contains(index); // Vérifie si le bouton est sélectionné
             return ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: isSelected ? Colors.orange : Colors.grey, // Change la couleur du bouton sélectionné
+                backgroundColor: isSelected ? Colors.green : Colors.grey, // Change la couleur en fonction de la sélection
               ),
               onPressed: () {
                 setState(() {
                   if (isSelected) {
                     selectedAnswers.remove(index); // Désélectionne si déjà sélectionné
                   } else {
-                    if (selectedAnswers.length < 2) { // Limite à deux réponses
-                      selectedAnswers.add(index); // Sélectionne ce bouton
-                    }
+                    selectedAnswers.add(index); // Ajoute à la sélection
                   }
                 });
               },
